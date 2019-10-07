@@ -1,17 +1,19 @@
 <div class="container mt-5">
-  <div class="text-align : center">
+  <div *ngIf="!registerMode" class="text-align : center">
     <h1>Find your Match</h1>
     <p class="lead">Come on in to see your match .... all you have to do is just sign up </p>
     <div class="text-center">
-      <button class="btn btn-primary btn-lg">Rigster</button>
+      <button class="btn btn-primary btn-lg mr-2" (click)="registertoggle()">Rigster</button>
       <button class="btn btn-info btn-lg">Learn More</button>
       </div>
   </div>
-  <div class="container">
+  <div *ngIf="registerMode" class="container">
     <div class="row justify-content-center">
       <div class="col-4">
+        <app-register></app-register>
 
       </div>
     </div>
   </div>
 </div>
+
