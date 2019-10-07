@@ -12,13 +12,20 @@ model: any = {};
 
   ngOnInit() {
   }
-login()
-{
- this.authServices.login(this.model).subscribe(next => {
+logIn() {
+ this.authServices.logIn(this.model).subscribe(next => {
    console.log('Logged In Successfully');
  }, error => {
    console.log('Failed to Login');
  }
   ) ;
+}
+loggedIn(){
+  const token = localStorage.getItem('token');
+  return !!token;
+}
+logOut(){
+  localStorage.removeItem('token');
+  console.log('Logged Out')
 }
 }
