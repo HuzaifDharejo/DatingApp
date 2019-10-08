@@ -29,10 +29,13 @@ namespace DatingApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(options =>
-        options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DataContext>(options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
-            services.AddCors();
+
+            services.AddCors(options => options.AddPolicy("EnableCORS" , builder => {
+                builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
+            }));
+
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddAuthentication( JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
@@ -54,9 +57,9 @@ namespace DatingApp
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            
             app.UseRouting();
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyMethod());
+            app.UseCors();
             
             app.UseAuthorization();
             app.UseAuthentication();

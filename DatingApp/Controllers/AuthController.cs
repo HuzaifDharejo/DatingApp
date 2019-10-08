@@ -13,11 +13,14 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 
 namespace DatingApp.Controllers
 {
     [Route("api/Auth")]
     [ApiController]
+    [EnableCors("EnableCORS")]
     public class AuthController : ControllerBase
     {
         private readonly IAuthRepository _repo;
@@ -29,6 +32,7 @@ namespace DatingApp.Controllers
             _config = config;
         }
         // POST: api/Auth
+        [AllowAnonymous]
         [HttpPost("Register")]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
@@ -48,6 +52,7 @@ namespace DatingApp.Controllers
 
         // PUT: api/Auth/5
         [HttpPost("Login")]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(UserForLogInDto userForLoGInDto)
         {
             var userFromRepo = await _repo.LogIn(userForLoGInDto.UserName, userForLoGInDto.Pasword);
