@@ -59,6 +59,7 @@ namespace DatingApp
             }
             
             app.UseRouting();
+            
             app.UseCors();
             
             app.UseAuthorization();
