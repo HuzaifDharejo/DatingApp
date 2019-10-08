@@ -12,7 +12,7 @@ namespace DatingApp.Dtos
         public string UserName { get; set; }
       
 
-        public string Pasword { get; set; }
+        public string Password { get; set; }
 
     }
 }

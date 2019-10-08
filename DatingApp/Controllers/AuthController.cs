@@ -20,7 +20,7 @@ namespace DatingApp.Controllers
 {
     [Route("api/Auth")]
     [ApiController]
-    [EnableCors("EnableCORS")]
+    // [EnableCors("EnableCORS")]
     public class AuthController : ControllerBase
     {
         private readonly IAuthRepository _repo;
@@ -45,7 +45,7 @@ namespace DatingApp.Controllers
             {
                 Name = userForRegisterDto.UserName
             };
-            await _repo.Rigster(UserTOcreate, userForRegisterDto.Pasword);
+            await _repo.Rigster(UserTOcreate, userForRegisterDto.Password);
             
             return StatusCode(201);
         }
@@ -55,7 +55,7 @@ namespace DatingApp.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(UserForLogInDto userForLoGInDto)
         {
-            var userFromRepo = await _repo.LogIn(userForLoGInDto.UserName, userForLoGInDto.Pasword);
+            var userFromRepo = await _repo.LogIn(userForLoGInDto.UserName, userForLoGInDto.Password);
             if (userFromRepo == null)
             {
                return Unauthorized();
