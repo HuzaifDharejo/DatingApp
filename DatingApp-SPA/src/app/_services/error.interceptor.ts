@@ -19,14 +19,19 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       catchError(error => {
         if (error instanceof HttpErrorResponse) {
+          if (error.status === 401)
+          {
+            return throwError(error.statusText)
+          }
           const applicationError = error.headers.get("Application-Error");
           if (applicationError) {
             console.error(applicationError);
             return throwError(applicationError);
           }
           const serverError = error.error;
-          let modelStateError = "";
-          if (serverError && typeof serverError === "object") {
+          
+          let modelStateError = '';
+          if (serverError && typeof serverError === 'object') {
             for (const key in serverError) {
               if (serverError[key]) {
                 modelStateError += serverError[key] + '\n';
