@@ -40,7 +40,9 @@ namespace DatingApp
                 builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
             }));
             services.AddControllers();
+            //services.AddTransient<Seed>();
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IDatingRepository, DatingRepository>();
             services.AddAuthentication( JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
@@ -76,6 +78,7 @@ namespace DatingApp
                     }
                 });
             });
+            //seeder.SeedUsers();
             app.UseCors("EnableCORS");
             
             app.UseAuthorization();

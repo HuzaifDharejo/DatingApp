@@ -41,7 +41,7 @@ namespace DatingApp.Controllers
             {
                 return BadRequest("Username Already Exist");
             }
-            var UserTOcreate = new User
+            var UserTOcreate = new Users
             {
                 Name = userForRegisterDto.UserName
             };

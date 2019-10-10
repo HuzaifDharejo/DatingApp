@@ -19,7 +19,7 @@ namespace DatingApp.Data
         {
             _dataContext = dataContext;
         }
-        public async Task<User> LogIn(string username, string password)
+        public async Task<Users> LogIn(string username, string password)
         {
             var users = await _dataContext.Users.Select(u => u.Name).ToListAsync();
 
@@ -46,7 +46,7 @@ namespace DatingApp.Data
             }
         }
 
-        public async Task<User> Rigster(User user, string password)
+        public async Task<Users> Rigster(Users user, string password)
         {
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(password, out passwordHash, out passwordSalt);

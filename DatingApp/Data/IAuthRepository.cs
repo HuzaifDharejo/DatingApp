@@ -8,8 +8,8 @@ namespace DatingApp.Data
 {
    public  interface IAuthRepository
     {
-        Task<User> Rigster(User user , string password);
-        Task<User> LogIn(string username, string pasword );
+        Task<Users> Rigster(Users user , string password);
+        Task<Users> LogIn(string username, string pasword );
         Task<bool> UserExist(string username );
     }
 }
