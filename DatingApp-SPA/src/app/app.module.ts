@@ -4,6 +4,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BsDropdownModule } from 'ngx-bootstrap';
 
 import { HttpClient } from 'selenium-webdriver/http';
 import { from } from 'rxjs';
@@ -18,7 +19,6 @@ import { AlertifyService } from './_services/alertify.service';
 @NgModule({
    declarations: [
       AppComponent,
-     
       NavComponent,
       HomeComponent,
       RegisterComponent
@@ -27,7 +27,8 @@ import { AlertifyService } from './_services/alertify.service';
       BrowserModule,
       HttpClientModule,
       AppRoutingModule,
-      FormsModule
+      FormsModule,
+      BsDropdownModule.forRoot()
    ],
    providers: [
       AuthService,
