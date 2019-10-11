@@ -18,6 +18,7 @@ using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using DatingApp.Helpers;
+using AutoMapper;
 
 namespace DatingApp
 {
@@ -40,9 +41,11 @@ namespace DatingApp
                 builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
             }));
             services.AddControllers();
+            
             //services.AddTransient<Seed>();
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IDatingRepository, DatingRepository>();
+            services.AddAutoMapper(typeof(Startup));
             services.AddAuthentication( JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters

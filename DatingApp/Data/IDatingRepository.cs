@@ -10,8 +10,8 @@ namespace DatingApp.Data
     {
         void Add<T>(T entity) where T : class;
         void Delet<T>(T entity) where T : class;
-        public Task<bool> SaveAll();
-        public Task<IAsyncEnumerable<Users>> GetUsers();
-        public Task<Users> GetUser(int Id);
+        Task<bool> SaveAll();
+        Task<IEnumerable<Users>> GetUsers();
+        Task<Users> GetUser(int Id);
     }
 }
