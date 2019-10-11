@@ -41,7 +41,7 @@ namespace DatingApp.Controllers
             var userToReturn = _maper.Map<UserForDetailedDto>(user);
             return Ok(userToReturn);
         }
-        //commint line
+
         // POST: api/Users
         [HttpPost]
         public void Post([FromBody] string value)
