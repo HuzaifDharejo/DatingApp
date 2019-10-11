@@ -4,13 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using DatingApp.Data;
+using DatingApp.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DatingApp.Controllers
 {
-    [Authorize]
+    
     [Route("api/Users")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -27,7 +28,9 @@ namespace DatingApp.Controllers
         public async Task<IActionResult> Get()
         {
             var users = await _repo.GetUsers();
-            return Ok(users);
+            var userToReturn = _maper.Map<IEnumerable<UserForListDto>>(users);
+
+            return Ok(userToReturn);
         }
 
         // GET: api/Users/5
@@ -35,7 +38,8 @@ namespace DatingApp.Controllers
         public async Task<IActionResult> Get(int id)
         {
             var user = await _repo.GetUser(id);
-            return Ok(user);
+            var userToReturn = _maper.Map<UserForDetailedDto>(user);
+            return Ok(userToReturn);
         }
 
         // POST: api/Users
