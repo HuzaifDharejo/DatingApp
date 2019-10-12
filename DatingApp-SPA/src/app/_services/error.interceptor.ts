@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import {
   HttpInterceptor,
   HttpRequest,
@@ -6,9 +6,9 @@ import {
   HttpEvent,
   HttpErrorResponse,
   HTTP_INTERCEPTORS
-} from "@angular/common/http";
-import { Observable, throwError } from "rxjs";
-import { catchError } from "rxjs/operators";
+} from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -19,29 +19,33 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       catchError(error => {
         if (error instanceof HttpErrorResponse) {
-          if (error.status === 401)
-          {
-            return throwError(error.statusText)
+          if (error.status === 400) {
+            return throwError(this.serverError(error));
           }
-          const applicationError = error.headers.get("Application-Error");
+
+          if (error.status === 401) {
+            return throwError(error.statusText);
+          }
+
+          const applicationError = error.headers.get('Application-Error');
           if (applicationError) {
             console.error(applicationError);
             return throwError(applicationError);
           }
-          const serverError = error.error;
-          
-          let modelStateError = '';
-          if (serverError && typeof serverError === 'object') {
-            for (const key in serverError) {
-              if (serverError[key]) {
-                modelStateError += serverError[key] + '\n';
-              }
-            }
-          }
-          return throwError(modelStateError || serverError || 'server Error')
+
+          return throwError(this.serverError(error));
         }
       })
     );
+  }
+
+  serverError({ error: serverError }) {
+    let modelStateError;
+    if (serverError && serverError.errors) {
+      modelStateError = Object.keys(serverError.errors).map(key => serverError.errors[key]).join('\n');
+    }
+
+    return modelStateError || serverError || 'server Error';
   }
 }
 export const ErrorInterceptorProvider = {

@@ -15,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
+using DatingApp.Helpers;
 
 namespace DatingApp.Controllers
 {
@@ -55,10 +56,11 @@ namespace DatingApp.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(UserForLogInDto userForLoGInDto)
         {
+
             var userFromRepo = await _repo.LogIn(userForLoGInDto.UserName, userForLoGInDto.Password);
             if (userFromRepo == null)
             {
-               return Unauthorized();
+               return BadRequest(BadRequstErrors.UserPasswordIncorrect);
             }
             var claims = new []
             {

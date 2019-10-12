@@ -1,8 +1,12 @@
 <div class="container">
     <div class="row">
+        <h1>Users</h1>
+    </div>
+    <div class="row">
         <div class="col-lg-2, col-md-3, col-sm-6 ">
-            <p *ngFor="let user of users">{{user.KnownAs}}</p>
-
+            <ul *ngFor="let user of users">
+                <li>{{user.knownAs}} <span class="badge badge-secondary">Last Active: {{user.lastActive | date}}</span></li>
+            </ul>
         </div>
     </div>
 </div>
