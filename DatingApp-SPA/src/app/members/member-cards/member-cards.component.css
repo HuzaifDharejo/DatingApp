@@ -1,0 +1,15 @@
+/* .card-img-top {
+    transform: scale(0.7);
+    transition-duration: 500ms;
+    transition-timing-function: ease-out;
+} */
+
+.card-img-top:hover {
+    transform: scale(1.9);
+    transition-duration: 500ms;
+    transition-timing-function: ease-out;
+}
+
+.card-img-wrapper {
+    overflow: hidden;
+}

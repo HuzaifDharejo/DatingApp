@@ -12,6 +12,7 @@ namespace DatingApp.Data
     public class Seed
     {
         private readonly DataContext _context;
+
         public Seed(DataContext context)
         {
             _context = context;
@@ -19,6 +20,11 @@ namespace DatingApp.Data
         }
         public void SeedUsers()
         {
+            if (_context.Users.Any())
+            {
+                return;
+            }
+
             var userData = System.IO.File.ReadAllText("Data/UserSeedData.json");
             var users = JsonConvert.DeserializeObject<List<Users>>(userData);
             foreach (var user in users)
@@ -27,6 +33,7 @@ namespace DatingApp.Data
                 CreatePasswordHash("1234", out passwordHash, out passwordSalt);
                 user.PasswordHash = passwordHash;
                 user.PasswordSalt = passwordSalt;
+                
                 user.Name = user.Name.ToLower();
 
                 _context.Users.Add(user);

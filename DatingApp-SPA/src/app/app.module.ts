@@ -16,12 +16,13 @@ import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { AlertifyService } from './_services/alertify.service';
 
 import { MessagesComponent } from './messages/messages.component';
-import { MemberListComponent } from './member-list/member-list.component';
+import { MemberListComponent } from './members/member-list/member-list.component';
 import { ListsComponent } from './lists/lists.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes';
 import { AuthGuard } from './_guardes/auth.guard';
 import { UserService } from './_services/user.service';
+import { MemberCardsComponent } from './members/member-cards/member-cards.component';
 
 
 
@@ -33,7 +34,8 @@ import { UserService } from './_services/user.service';
       RegisterComponent,
       MessagesComponent,
       MemberListComponent,
-      ListsComponent
+      ListsComponent,
+      MemberCardsComponent
    ],
    imports: [
       BrowserModule,
