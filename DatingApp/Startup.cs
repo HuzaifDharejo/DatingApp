@@ -66,7 +66,7 @@ namespace DatingApp
             if (env.IsDevelopment())
             {
                 logger.LogInformation("****************************Seeding Database**********************************");
-                seeder.SeedUsers();
+                //seeder.SeedUsers();
                 logger.LogInformation("*********Seeding Completed**********************");
 
                 app.UseDeveloperExceptionPage();

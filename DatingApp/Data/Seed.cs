@@ -20,10 +20,10 @@ namespace DatingApp.Data
         }
         public void SeedUsers()
         {
-            if (_context.Users.Any())
-            {
-                return;
-            }
+          if (_context.Users.Any())
+           {
+              return;
+           }
 
             var userData = System.IO.File.ReadAllText("Data/UserSeedData.json");
             var users = JsonConvert.DeserializeObject<List<Users>>(userData);
