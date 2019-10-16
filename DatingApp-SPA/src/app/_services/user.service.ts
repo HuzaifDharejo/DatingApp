@@ -5,12 +5,6 @@ import { Observable } from 'rxjs';
 import { User } from '../_models/User';
 
 
-const HttpOptions = {
-  headers: new HttpHeaders({
-    Authoraziton: localStorage.getItem('token'),
-  })
-}
-
 @Injectable({
   providedIn: 'root'
 })
@@ -20,10 +14,11 @@ baseUrl = environment.apiUrl;
 constructor(private http: HttpClient) { }
 
 getUsers(): Observable<User[]> {
- return this.http.get<User[]>(this.baseUrl + 'users', HttpOptions);
+ return this.http.get<User[]>(this.baseUrl + 'users');
 }
 getUser(Id: any): Observable<User> {
-  return this.http.get<User>(this.baseUrl + 'users' + Id, HttpOptions);
+  
+  return this.http.get<User>(this.baseUrl + 'users/' + Id);
 
 
 }
