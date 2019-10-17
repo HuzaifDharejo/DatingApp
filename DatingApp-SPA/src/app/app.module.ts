@@ -29,6 +29,8 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
 import { MemberEditResolver } from './_resolver/member-edit.resolver';
 import { PreventUnSavedChenges } from './_guardes/prevent-unsaved-changes.guard';
 
+import { NgxGalleryModule } from "ngx-gallery";
+
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
@@ -53,8 +55,8 @@ export function tokenGetter() {
     FormsModule,
     TabsModule.forRoot(),
     BsDropdownModule.forRoot(),
+    NgxGalleryModule,
     RouterModule.forRoot(appRoutes),
-
     JwtModule.forRoot({
       config: {
         tokenGetter,
