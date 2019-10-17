@@ -24,7 +24,7 @@ namespace DatingApp.Data
            {
               return;
            }
-
+            
             var userData = System.IO.File.ReadAllText("Data/UserSeedData.json");
             var users = JsonConvert.DeserializeObject<List<Users>>(userData);
             foreach (var user in users)
