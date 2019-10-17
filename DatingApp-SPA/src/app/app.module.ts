@@ -25,6 +25,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberDetailResolver } from './_resolver/member-detail.resolver';
 import { MemberListResolver } from './_resolver/member-list.resolver';
+<<<<<<< HEAD
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { MemberEditResolver } from './_resolver/member-edit.resolver';
 
@@ -73,5 +74,52 @@ export function tokenGetter() {
     MemberEditResolver
   ],
   bootstrap: [AppComponent]
+=======
+
+export function tokenGetter() {
+   return localStorage.getItem('token');
+}
+
+@NgModule({
+   declarations: [
+      AppComponent,
+      NavComponent,
+      HomeComponent,
+      RegisterComponent,
+      MessagesComponent,
+      MemberListComponent,
+      ListsComponent,
+      MemberCardsComponent,
+      MemberDetailComponent
+   ],
+   imports: [
+      BrowserModule,
+      HttpClientModule,
+      AppRoutingModule,
+      FormsModule,
+      TabsModule.forRoot(),
+      BsDropdownModule.forRoot(),
+      RouterModule.forRoot(appRoutes),
+      JwtModule.forRoot({
+         config: {
+            tokenGetter,
+            whitelistedDomains: ['localhost:55314'],
+            blacklistedRoutes: ['localhost:55314/api/auth']
+         }
+      })
+   ],
+   providers: [
+      AuthService,
+      ErrorInterceptorProvider,
+      AlertifyService,
+      AuthGuard,
+      UserService,
+      MemberDetailResolver,
+      MemberListResolver
+   ],
+   bootstrap: [
+      AppComponent
+   ]
+>>>>>>> master
 })
 export class AppModule {}

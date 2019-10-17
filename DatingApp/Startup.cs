@@ -34,15 +34,16 @@ namespace DatingApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-            
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+
+            services.AddDbContext<DataContext>(options => options.UseSqlite(connectionString));
 
             services.AddCors(options => options.AddPolicy("EnableCORS" , builder => {
                 builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
             }));
             services.AddControllers();
             
-            //services.AddTransient<Seed>();
+            services.AddTransient<Seed>();
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IDatingRepository, DatingRepository>();
             services.AddAutoMapper(typeof(Startup));
@@ -60,10 +61,14 @@ namespace DatingApp
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Seed seeder, ILogger<Startup> logger)
         {
             if (env.IsDevelopment())
             {
+                logger.LogInformation("****************************Seeding Database**********************************");
+                //seeder.SeedUsers();
+                logger.LogInformation("*********Seeding Completed**********************");
+
                 app.UseDeveloperExceptionPage();
             }
             
@@ -81,7 +86,7 @@ namespace DatingApp
                     }
                 });
             });
-            //seeder.SeedUsers();
+
             app.UseCors("EnableCORS");
             
             app.UseAuthorization();
