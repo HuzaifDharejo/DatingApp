@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <button [disabled]="!editForm.dirty" form="editForm" class="btn btn-success btn-block w-100">
+                    <button [disabled]="!editForm.dirty" (click)="editForm.reset(user)" form="editForm" class="btn btn-success btn-block w-100">
             Save
           </button>
                 </div>
