@@ -11,8 +11,8 @@ import { NgForm } from '@angular/forms';
 })
 export class MemberEditComponent implements OnInit {
 
-  @ViewChild("editUserForm")
-  editForm: ElementRef;
+   @ViewChild('editUserForm', {static: true})
+  editForm: NgForm;
 
   user: User;
 
@@ -29,8 +29,5 @@ export class MemberEditComponent implements OnInit {
   }
 
 
-  resetForm() {
-    this.editForm.reset();
-    
-  }
+ 
 }
