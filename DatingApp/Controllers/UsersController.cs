@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using DatingApp.Data;
@@ -11,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DatingApp.Controllers
 {
-    
+
     [Route("api/Users")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -50,8 +51,26 @@ namespace DatingApp.Controllers
 
         // PUT: api/Users/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> UpdateUser(int Id, [FromBody]UserForUpdateDto userForUpdatreDto)
         {
+            if (User.FindFirst(ClaimTypes.NameIdentifier) == null)
+            {
+                return BadRequest();
+            }
+
+            if (Id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            {
+                return Unauthorized();
+            }
+
+            var userFromRepo = await _repo.GetUser(Id);
+            _maper.Map(userForUpdatreDto, userFromRepo);
+            if (await _repo.SaveAll())
+            {
+                return NoContent();
+            }
+
+            throw new Exception($"Updating User {Id} Failed on save ");
         }
 
         // DELETE: api/ApiWithActions/5

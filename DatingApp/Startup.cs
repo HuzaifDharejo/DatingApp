@@ -47,15 +47,23 @@ namespace DatingApp
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IDatingRepository, DatingRepository>();
             services.AddAutoMapper(typeof(Startup));
-            services.AddAuthentication( JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+
+
+            //  services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).
+            services.AddAuthentication(options =>
             {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey
-                    (Encoding.ASCII.GetBytes(Configuration.GetSection("AppSetting:Token").Value)),
-                    ValidateIssuer = false
-
+                    ValidateIssuerSigningKey = false,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration.GetSection("AppSetting:Token").Value)),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
                 };
             });
         }
