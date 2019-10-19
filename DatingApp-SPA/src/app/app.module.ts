@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
+import {NgxGalleryModule} from 'ngx-gallery';
 
 import { NavComponent } from './nav/nav.component';
 import { AuthService } from './_services/auth.service';
@@ -48,6 +49,7 @@ export function tokenGetter() {
   ],
   imports: [
     BrowserModule,
+    NgxGalleryModule,
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
