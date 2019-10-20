@@ -4,7 +4,7 @@
             <h1>Your Profile</h1>
         </div>
         <div class="col-sm-8">
-            <div *ngIf="editUserForm.dirty" class="alert alert-info">
+            <div *ngIf="editForm.dirty" class="alert alert-info">
                 <b>Information:</b> Any unsave data will be lost !!
             </div>
         </div>
@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <button [disabled]="!editUserForm.dirty" (click)="updateUser();editUserForm.reset(user)" form="editForm" class="btn btn-success btn-block w-100">
+                    <button [disabled]="!editForm.dirty" (click)=" updateUser();editForm.reset(user)" form="editForm" class="btn btn-success btn-block w-100">
             Save
           </button>
                 </div>
@@ -38,7 +38,7 @@
             <div class="tab-panel">
                 <tabset class="member-tabset">
                     <tab heading="Edit Profile">
-                        <form #editUserForm="ngForm" id="editForm">
+                        <form #editForm="ngForm" id="editForm">
 
                             <h4>Discription</h4>
                             <textarea class="form-control" name="introduction" rows="6" [(ngModel)]="user.introduction"></textarea>

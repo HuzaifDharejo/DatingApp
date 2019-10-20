@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DatingApp.Helpers
 {
-    public static class Extansions
+    public static class Extensions
     {
         public static void AddApplicationError(this HttpResponse response, string message)
         {
@@ -14,13 +14,15 @@ namespace DatingApp.Helpers
             response.Headers.Add("Access-Control-Expose-Headers", "Application-Error");
             response.Headers.Add("Access-Control-Allow-Origin", "*");
         }
-        public static int CalculateAge(this DateTime theDateTime)
+
+        public static int CalculateAge(this DateTime dob, DateTime? fromDate = null)
         {
-            var age = DateTime.Today.Year - theDateTime.Year;
-            if (theDateTime.AddYears(age) > DateTime.Today)
+            var referenceDate = fromDate ?? DateTime.Today;
+            var age = referenceDate.Year - dob.Year;
+
+            if (dob.AddYears(age) > referenceDate)
                 age--;
             return age;
-
         }
     }
 }

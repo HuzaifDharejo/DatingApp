@@ -1,6 +1,6 @@
 <div class="container mt-4">
     <div class="row">
-        <h1>{{user.knownAs}} Profile</h1>
+        <h1>{{ user.knownAs }} Profile</h1>
     </div>
     <div class="row">
         <div class="col-sm-4">
@@ -46,7 +46,7 @@
                         <p>{{ user?.interests }}</p>
                     </tab>
                     <tab heading="Photos">
-                        <p>Photos will be here</p>
+                        <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
                     </tab>
                     <tab heading="Messages">
                         <p>messages will be here</p>
