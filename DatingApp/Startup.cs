@@ -42,6 +42,7 @@ namespace DatingApp
                 builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
             }));
             services.AddControllers();
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             
             services.AddTransient<Seed>();
             services.AddScoped<IAuthRepository, AuthRepository>();
