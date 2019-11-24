@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Photo } from 'src/app/_models/Photo';
 import { FileUploader } from 'ng2-file-upload';
 import { environment } from '../../../environments/environment';
@@ -12,9 +12,11 @@ import { AlertifyService } from 'src/app/_services/alertify.service';
 })
 export class PhotoEditerComponent implements OnInit {
   @Input() photos: Photo[];
+  @Output() getMemberChange = new EventEmitter<string>();
   uploader: FileUploader;
   hasBaseDropZoneOver = false;
   baseurl = environment.apiUrl;
+  currentMain: Photo;
   constructor(private authService: AuthService, private userService: UserService, private alertify: AlertifyService) {}
 
   ngOnInit() {
@@ -57,10 +59,25 @@ export class PhotoEditerComponent implements OnInit {
   }
   setMainPhoto(photo: Photo) {
     this.userService.setMainPhoto(this.authService.decodedToken.nameid, photo.id).subscribe(() => {
-      console.log('successfuly set to main');
+      this.currentMain = this.photos.filter(p => p.isMain === true)[0];
+      this.currentMain.isMain = false;
+      photo.isMain = true;
+      this.authService.changeMemberPhoto(photo.url);
+      this.authService.currentUser.photoUrl = photo.url;
+      localStorage.setItem('user', JSON.stringify(this.authService.currentUser));
     }, error => {
       this.alertify.error(error);
     }
     );
+  }
+  deletePhoto(id: number) {
+    this.alertify.comfirm('Are you sure ? photo will get delet', () => {
+      this.userService.deletePhoto(this.authService.decodedToken.nameid, id).subscribe(() => {
+        this.photos.splice(this.photos.findIndex(p => p.id === id), 1);
+        this.alertify.success('Photo Have Been Deleted');
+      }, error => {
+        this.alertify.error('Unable to delete')
+      });
+    });
   }
 }

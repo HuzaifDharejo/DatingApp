@@ -23,7 +23,7 @@ namespace DatingApp.Data
         {
             var users = await _dataContext.Users.Select(u => u.Name).ToListAsync();
 
-            var user = await _dataContext.Users.FirstOrDefaultAsync(x => x.Name == username);
+            var user = await _dataContext.Users.Include(p => p.Photos).FirstOrDefaultAsync(x => x.Name == username);
             if (user == null)
                 return null;
             if (!VerifyPassword(password, user.PasswordHash, user.PasswordSalt))
