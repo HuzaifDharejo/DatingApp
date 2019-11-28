@@ -20,6 +20,8 @@ namespace DatingApp.Helpers
             .ForMember(dest => dest.Age, otp => otp.MapFrom(d => d.DateOfBirth.CalculateAge(DateTime.Today)));
             CreateMap<Photo, PhotosForDetailedDto>();
             CreateMap<UserForUpdateDto, Users>();
+            CreateMap<Photo, PhotoForPhotoReturnDto>();
+            CreateMap<PhotoForPhotoCreationDto, Photo>();
         }
 
     }

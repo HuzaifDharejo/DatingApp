@@ -39,9 +39,14 @@ namespace DatingApp
             services.AddDbContext<DataContext>(options => options.UseSqlite(connectionString));
 
             services.AddCors(options => options.AddPolicy("EnableCORS" , builder => {
-                builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
+                builder
+                .AllowCredentials()
+                .WithOrigins("http://localhost:4200")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
             }));
             services.AddControllers();
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             
             services.AddTransient<Seed>();
             services.AddScoped<IAuthRepository, AuthRepository>();
