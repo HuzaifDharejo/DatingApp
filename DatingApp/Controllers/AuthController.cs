@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using DatingApp.Data;
 using DatingApp.Models;
 using DatingApp.Dtos;
-using net.openstack.Providers.Rackspace.Objects.Databases;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
